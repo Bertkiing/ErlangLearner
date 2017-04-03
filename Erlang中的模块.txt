@@ -1,0 +1,71 @@
+参考链接: http://mbooks.me/LYEFGG/modules.html
+
+Erlang的模块(Modules):
+    使用交互式的shell被认为是动态语言非常重要的一部分。
+
+模块是将很多函数放到同一命名空间,存储到一个文件中。
+
+
+如果是erlang模块,则会被自动引入;
+剩下的函数，需要使用Module:Function(Arguments)这种方式来调用.
+1. erlang:element(2,{a,b,c}). 结果为 b ;  类似于取2的元素.
+2. element(2,{a,b,c}). 结果为b ; 
+
+
+--------------lists模块---------------------
+3. lists:seq(1,4). 结果为 [1,2,3,4]
+ 1) 列表相关的操作都被放到了lists模块中;
+ 2) 关于IO的操作(输出到终端或写文件)都被放到io模块中.
+ 3) erlang模块包含了数学,转换,多进程和调整虚拟机相关的设置等。
+
+
+模块声明：
+模块主要分为两个部分：
+    1. -module(Name). (该文件的文件名就是Name.erl,Name是原子,erl是标准的Erlang代码扩展名);
+    2. -export([Function1/Arity,Function2/Arity,...,FunctionN/Arity]).
+       (能被其他模块调用的函数必须写入-export([])里面,没有写入的函数被称为内部函数,只能在模块内部使用;)
+       -import(Module,[Function1/Arity,...,FunctionN/Arity]).
+       (-import是引入模块的函数)
+    3. 函数：
+        函数的语法是FunctionName(Args) -> Body.  (FunctionName是一个原子,Body是用逗号分隔的多个Erlang表达式,函数以句号结尾,
+        Erlang没有“return”关键字.取而代之的是,函数的最后一个逻辑表达式所返回的值将会返回给调用者).
+
+建议：
+    Erlang程序员非常不鼓励使用-import属性,因为我们会发现它降低了代码的可读性。
+    我们鼓励：保留模块名来调用函数。模块名:函数名(参数).通常,你会看到唯一引入的函数是从列表模块：列表模块中的函数比别的模块中的函数使用频率更高。
+
+
+
+编译代码：
+    Erlang代码都是被编译成字节码供虚拟机使用。
+    在系统命令行中可以用 erlc flags file.erl.
+    在Erlang-shell或者模块中可以用compile:file(FileName).
+    在Erlang-shell中可以用c().
+
+    .erl文件 ----> .beam文件;
+    (“.beam”表示Bogdan/Bjorn's Erlang Abstract Machine,Erlang虚拟机的名字)
+
+
+Erlang有很多编译标志来控制模块的编译。(参考：http://erlang.org/doc/man/compile.html)
+    常用的标志有：
+        -debug_info
+            Erlang的工具像调试器，代码覆盖和静态分析工具等将使用模块的调试信息来工作.
+        -{outdir,Dir} 
+            默认情况下,Erlang的编译器将在当前目录中创建".beam"文件.这个标志将让你选择编译的文件放在何处.
+        -export_all
+            这个标志将忽略-export模块属性，并将导出所有的函数.这个主要用于测试和开发新的代码，但是你不应当在生产代码中使用。
+        -{d,Macro} or {的，Macro,Value}
+            在模块中定义一个宏,其中Macro原子。这个主要是用于单元测试，确保每个模块中的测试函数能正确的被创建和导出。默认情况下，
+            如果不定义元组的第三个元素Value,则Value默认为true.
+
+在编译器中查看模块信息：
+    模块名:module_info().
+
+最后关于模块的设计：
+   1. 避免循环依赖 ！！！
+   2. 相同功能的函数放在一起，被认为是非常好的实践。
+
+
+   The last thing you want  is to wake up in the middle of the night only to find a maniac software 
+   engineer or  computer scientist  trying to  gouge your eyes out because of terrible code you have 
+   written.

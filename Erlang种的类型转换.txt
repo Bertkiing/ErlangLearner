@@ -1,0 +1,46 @@
+Erlang种的数据类型转换:
+    通常都是通过内置函数(erlang模块下)来实现的.这类函数通常使用<type>_to_<type>的格式;
+
+比如常用的有：
+    atom_to_list/1
+    list_to_integer/1
+    integer_to_list/1
+    list_to_float/1
+    float_to_list/1
+    tuple_to_list/1
+    list_to_tuple/1
+
+
+Erlang的基本数据类型非常容易通过视觉判断出来：
+    1.列表使用大括号{};
+    2.元组使用中括号[];
+    3.原子使用小括号();
+
+---------------------判断数据类型--------------------------------
+以下是部分常用的类型判断函数(BIFs内置函数,erlang模块下)
+    is_atom/1
+    is_boolean/1
+    is_tuple/1
+    is_float/1
+    is_integer/1
+    is_list/1
+    is_number/1
+    is_function/1, is_function/2
+    is_record/2
+    is_record/3
+    is_reference/1
+    
+----------------------其他常用的一些内置函数---------------------
+    abs(Number). ---> 绝对值
+    float(Number). ---->浮点数处理
+    trunc(Number)  ----> 取整函数
+    round(Number)  ----> 四舍五入函数
+    hs(List)  ---->列表头
+    tl(List)  ---->列表尾
+    length(List) ---->列表长度
+    tuple_size(Tuple) ----> 元组长度
+    element(N,Tuple)  ---->元组中提取N元素
+
+     
+从表面上来看,Erlang的数据结构非常受限,但是列表和元组可以无障碍地构造出其它复杂的数据结构。
+如：一个二叉树的基本节点：{node,Value,Left,Right}来表示.
