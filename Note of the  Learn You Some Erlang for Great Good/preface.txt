@@ -3,3 +3,15 @@
 在买本书之前,我看的都是英文版的(PS:[英文版免费](http://learnyousomeerlang.com/))
 
 看书做笔记---受益匪浅！！！
+### Erlang中表示其他进制(2 ~ 36)
+主要的表示形式是(**System#Value**,其中不能加空格,<br>即System#Value是整体,表示的是一个System进制值为Value的数)
+```
+    1> 2#101.
+    5
+    2> 2# 101.  %有空格
+    * 1: illegal integer
+    3> 2 #101.  %有空格
+    * 1: syntax error before: 1
+    4> 2 # 101. %有空格
+    * 1: syntax error before: 101
+```
