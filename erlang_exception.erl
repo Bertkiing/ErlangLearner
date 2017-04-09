@@ -1,5 +1,5 @@
 -module(erlang_exception).
--export([generate_exception/1,test/0,test_catch/0]).
+-export([generate_exception/1,test/0,test_catch/0,sqrt/1,getStackTrace/0]).
 
 generate_exception(1) -> a;
 generate_exception(2) -> throw(a); % exception throw:
@@ -24,3 +24,16 @@ catcher(N) ->
         exit:X ->{N,caught,exited,X};
         error:X -> {N,caught,error,X}     
     end.
+
+    %%开方函数
+    sqrt(X) when X < 0  ->
+    error({"squareRoot negative argument",X});
+    sqrt(X) ->
+    math:sqrt(X).
+    
+    getStackTrace() ->
+        try generate_exception(5)
+        catch
+            error:X ->
+                {X,erlang:get_stacktrace()}
+                end.

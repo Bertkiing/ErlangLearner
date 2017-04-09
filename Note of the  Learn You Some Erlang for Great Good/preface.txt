@@ -6,7 +6,7 @@
 ### Erlang中表示其他进制(2 ~ 36)
 主要的表示形式是(**System#Value**,其中不能加空格,<br>即System#Value是整体,表示的是一个System进制值为Value的数)
 ```
-    1> 2#101.
+    1> 2#101.s
     5
     2> 2# 101.  %有空格
     * 1: illegal integer
